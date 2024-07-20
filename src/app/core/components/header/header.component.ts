@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  filterOpen = false;
   newValue: '';
   constructor(){
 
@@ -14,4 +15,10 @@ export class HeaderComponent {
     console.log(this.newValue);
     
   }
+  openFilter() {
+    console.log('filter');
+    this.filterOpen=!this.filterOpen;
+    console.log(this.filterOpen);
+    
+    }
 }

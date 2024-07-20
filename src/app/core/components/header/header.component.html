@@ -1,6 +1,6 @@
-<p-panel [styleClass]="'custom-panel'">
-    <ng-template pTemplate="header">
-      <header style="display: flex; justify-content: space-around; align-items: center; width: 100%;">
+<!-- <p-panel [styleClass]="'custom-panel'" style="background-color: #E5E5E5;">
+    <ng-template pTemplate="header"  style="background-color: #E5E5E5;"> -->
+      <header style="display: flex; justify-content: space-around; align-items: center; width: 100%; background-color: #E5E5E5; padding: 30px 0px;">
         <div>
 
         </div>
@@ -20,7 +20,7 @@
   
           <div style="display: flex; justify-content: center; align-items: center; width: 33px; height: 33px; background-color: #2F80ED; box-shadow: 2px 0px 4px 0px #2F80ED; border-radius: 5px; margin-left: 20px;">
             
-            <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: column; cursor: pointer;" (click)="openFilter()">
                 <div style="width: 20px; height: 2px; background-color: #FFFFFF; margin: 2px 0;"></div>
                 <div style="width: 20px; height: 2px; background-color: #FFFFFF; margin: 2px 0;"></div>
                 <div style="width: 20px; height: 2px; background-color: #FFFFFF; margin: 2px 0;"></div>
@@ -35,13 +35,14 @@
             </div>
          
           <div style="display: flex; justify-content:center; align-items: center; width: 33px; height: 33px; background-color: #2F80ED; box-shadow: 2px 0px 4px 0px #2F80ED; border-radius: 5px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" style="color: #FFFFFF;" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <svg  xmlns="http://www.w3.org/2000/svg" width="25" height="25" style="color: #FFFFFF;" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
             </svg>
           </div>
         </div>
       </header>
-    </ng-template>
-  </p-panel>
-  
+    <!-- </ng-template>
+  </p-panel> -->
+
+  <app-filter *ngIf="filterOpen"></app-filter>
