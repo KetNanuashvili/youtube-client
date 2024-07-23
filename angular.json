@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "youtubeclient": {
+    "youtube-client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/youtubeclient",
+            "outputPath": "dist/youtube-client",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -38,8 +38,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+            "styles": [ "node_modules/primeng/resources/themes/saga-blue/theme.css",
             "node_modules/primeng/resources/primeng.min.css",
             "node_modules/primeicons/primeicons.css",
                 "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -47,13 +46,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-
-            ],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
@@ -83,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "youtubeclient:build:production"
+              "buildTarget": "youtube-client:build:production"
             },
             "development": {
-              "buildTarget": "youtubeclient:build:development"
+              "buildTarget": "youtube-client:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -109,12 +102,29 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
+            "styles": [  
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.scss",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css"
+            
             ],
-            "scripts": []
+            "scripts": [
+                "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
+
       }
     }
   }

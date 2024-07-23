@@ -1,31 +1,36 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/components/header/header.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { PanelModule } from 'primeng/panel';
 import { FilterComponent } from './youtube/components/filter/filter.component';
 import { SearchResultComponent } from './youtube/components/search-result/search-result.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MainServiceService } from './youtube/services/main-service.service';
+import { LoginPageComponent } from './auth/components/login-page/login-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FilterComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    LoginPageComponent,
+
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule,  
-    PanelModule
+    FormsModule,
+    PanelModule,
+    HttpClientModule
   ],
-  providers: [
-    provideClientHydration()
+  providers: [MainServiceService, 
+    
   ],
   bootstrap: [AppComponent]
 })
