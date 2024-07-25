@@ -11,6 +11,7 @@ import { SearchResultComponent } from './youtube/components/search-result/search
 import { HttpClientModule } from '@angular/common/http';
 import { MainServiceService } from './youtube/services/main-service.service';
 import { LoginPageComponent } from './auth/components/login-page/login-page.component';
+import { DetailComponentComponent } from './youtube/components/detail-component/detail-component.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoginPageComponent } from './auth/components/login-page/login-page.comp
     FilterComponent,
     SearchResultComponent,
     LoginPageComponent,
+    DetailComponentComponent,
 
   ],
   imports: [

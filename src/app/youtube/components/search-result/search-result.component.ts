@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from '../../services/main-service.service';
 import { differenceInDays, parseISO } from 'date-fns';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-result',
@@ -9,19 +10,17 @@ import { differenceInDays, parseISO } from 'date-fns';
 })
 export class SearchResultComponent implements OnInit {
   data: any[] = [];
+  selectedItem: any;
 
-  constructor(private dataService: MainServiceService) { }
+  constructor(private dataService: MainServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.dataService.getData().subscribe(
       data => {
-        this.data = data.items.map(item => {
-          return {
-            ...item,
-            borderColor: this.getBorderColor(item.snippet.publishedAt)
-          };
-        });
-        console.log(this.data);
+        this.data = data.items.map(item => ({
+          ...item,
+          borderColor: this.getBorderColor(item.snippet.publishedAt)
+        }));
       },
       error => {
         console.error('Error fetching data', error);
@@ -35,13 +34,18 @@ export class SearchResultComponent implements OnInit {
     const daysDifference = differenceInDays(currentDate, publishedDate);
 
     if (daysDifference > 180) {
-      return 'red'; // 🟥 if older than 6 months
+      return 'red';
     } else if (daysDifference > 30) {
-      return 'yellow'; // 🟨 if between 1 and 6 months
+      return 'yellow';
     } else if (daysDifference > 7) {
-      return 'green'; // 🟩 if between 7 days and 1 month
+      return 'green';
     } else {
-      return 'blue'; // 🟦 if newer than 7 days
+      return 'blue';
     }
+  }
+
+  navigateToChild(item: any) {
+    this.selectedItem = item;
+    this.router.navigate(['youtube/child'], { state: { item: this.selectedItem } });
   }
 }
