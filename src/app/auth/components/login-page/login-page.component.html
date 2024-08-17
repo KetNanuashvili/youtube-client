@@ -1,48 +1,78 @@
 <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px;">
-    <form >
-        <div class="login-form" *ngIf="!openRegistration">
-            <h3 style="margin-top:10px; font-size: 22px;">Login</h3>
-            <div class="form-group" style="margin-bottom: 10px;">
-              <label for="exampleInputEmail1">login</label>
-              <input  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
-            </div>
-            <div class="form-group"  style="margin-bottom: 10px;">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
-                <p style="margin-right: 20px; font-size: 14x;" (click)="clickRegistration()">Registration</p>
-                <button style="    width: 130px;
-                background-color: #2F80ED;
-                color: white;" type="submit" class="btn btn-primary">Login</button>
-            </div>
-        </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="login-form" formGroupName="loginGroup" *ngIf="!openRegistration">
+          <h3 style="margin-top:10px; font-size: 22px;">Login</h3>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="login">login</label>
+            <input formControlName="login" type="email" class="form-control" id="login" aria-describedby="emailHelp">
+          </div>
+          <div class="form-group"  style="margin-bottom: 10px;">
+            <label for="memberisedpassword">Password</label>
+            <input formControlName="memberisedpassword" type="password" class="form-control" id="memberisedpassword">
+          </div>
+          <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
+              <p style="margin-right: 20px; font-size: 14x; cursor: pointer;" (click)="clickRegistration()">Registration</p>
+              <button style="    width: 130px;
+              background-color: #2F80ED;
+            " type="submit" class="btn btn-primary" > <a style="text-decoration: none;   color: white;" routerLink="../youtube" routerLinkActive="active">Login</a></button>
+          </div>
+      </div>
 
-        <div class="registration-form" *ngIf="openRegistration">
-            <h3 style="margin-top:20px; font-size: 22px;">Registration</h3>
-            <div class="form-group" style="margin-bottom: 10px;">
-              <label for="exampleInputEmail1">First Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+      <div class="registration-form" formGroupName="registrationGroup" *ngIf="openRegistration">
+          <h3 style="margin-top:20px; font-size: 22px;">Registration</h3>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="FirstName">First Name</label>
+            <input formControlName="firstName" type="text" class="form-control" id="FirstName" aria-describedby="emailHelp" >
+
+            <!-- error -->
+            <div *ngIf="form.get('registrationGroup.firstName')?.invalid && form.get('registrationGroup.firstName')?.touched">
+              <small style="color: red" *ngIf="form.get('registrationGroup.firstName')?.errors?.required">First name is required.</small>
+            </div>
+
+
+          </div>
+          <div class="form-group"  style="margin-bottom: 10px;">
+            <label for="exampleInputlastname">Last Name</label>
+            <input formControlName="lastName" type="text" class="form-control" id="exampleInputlastname">
+
+            <!-- error -->
+            <div *ngIf="form.get('registrationGroup.lastName')?.invalid && form.get('registrationGroup.lastName')?.touched ">
+              <small style="color: red"  *ngIf="form.get('registrationGroup.lastName')?.errors?.required">Last name is required.</small>
+            </div>
+          </div>
+
+          <div class="form-group"  style="margin-bottom: 10px;">
+              <label for="exampleInputemail">mail</label>
+              <input formControlName="email" class="form-control" id="exampleInputemail">
+
+               <!-- error -->
+            <div *ngIf="form.get('registrationGroup.email')?.invalid && form.get('registrationGroup.email').hasError('invalidEmail') && form.get('registrationGroup.email')?.touched">
+              <small style="color: red"  *ngIf="form.get('registrationGroup.email')?.errors?.required">Email  is required.</small>
+              <small style="color: red"  *ngIf="form.get('registrationGroup.email')?.errors?.invalidEmail">Please select Email simbol.</small>
+            </div>
+
             </div>
             <div class="form-group"  style="margin-bottom: 10px;">
-              <label for="exampleInputPassword1">Last Name</label>
-              <input type="text" class="form-control" id="exampleInputPassword1">
+              <label for="exampleInputPassword">Password</label>
+              <input formControlName="password" type="password" class="form-control" id="exampleInputPassword">
+
+               <!-- error -->
+
+               
+            <div *ngIf="form.get('registrationGroup.password')?.invalid && form.get('registrationGroup.password').hasError('invalidPassword') && form.get('registrationGroup.password')?.touched">
+              <small style="color: red"  *ngIf="form.get('registrationGroup.password')?.errors?.required">Password is required.</small>
+              <small style="color: red"  *ngIf="form.get('registrationGroup.password')?.errors?.invalidPassword"> Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</small>
             </div>
-            <div class="form-group"  style="margin-bottom: 10px;">
-                <label for="exampleInputPassword1">mail</label>
-                <input type="gmail" class="form-control" id="exampleInputPassword1">
-              </div>
-              <div class="form-group"  style="margin-bottom: 10px;">
-                <label for="exampleInputPassword1">Last Name</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-              </div>
-            <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
-                <a style="margin-right: 20px; font-size: 14x;" href="">Login</a>
-                <button style="    width: 130px;
-                background-color: #2F80ED;
-                color: white;" type="submit" class="btn btn-primary">Login</button>
             </div>
-        </div>
-      </form>
+
+          <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
+              <a style="margin-right: 20px; font-size: 14x;" href="">Login</a>
+              <button style="    width: 130px;
+              background-color: #2F80ED;
+              color: white;" type="submit" class="btn btn-primary" (click)="newCustomerResgistraion()">Registration</button>
+          </div>
+      </div>
+    </form>
 
 </div>
+

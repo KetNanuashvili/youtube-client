@@ -7,7 +7,8 @@ import { DetailComponentComponent } from './youtube/components/detail-component/
 const routes: Routes = [
   { path: 'youtube', component: SearchResultComponent },
   { path: 'youtube/child', component: DetailComponentComponent },
-  { path: '', redirectTo: '/youtube', pathMatch: 'full' }
+  { path: 'login', component: LoginPageComponent },
+  { path: '', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
