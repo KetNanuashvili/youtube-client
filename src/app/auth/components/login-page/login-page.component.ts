@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class LoginPageComponent implements OnInit{
   loginPage: boolean = true;
   loginFunction:boolean= false;
-
+  passwordUnhide: boolean= false;
   openRegistration: boolean = false;
   smallErrors: boolean = false;
 
@@ -74,6 +74,14 @@ export class LoginPageComponent implements OnInit{
   }
 
 
+
+  showPassword(){
+    this.passwordUnhide=!this.passwordUnhide;
+    if(this.passwordUnhide){
+      console.log(this.loginform.value.memberisedpassword);
+      this.loginform.value.memberisedpassword;
+    }
+  }
 }
 
 
