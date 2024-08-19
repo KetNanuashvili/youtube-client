@@ -1,78 +1,96 @@
 <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px;">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="login-form" formGroupName="loginGroup" *ngIf="!openRegistration">
-          <h3 style="margin-top:10px; font-size: 22px;">Login</h3>
-          <div class="form-group" style="margin-bottom: 10px;">
-            <label for="login">login</label>
-            <input formControlName="login" type="email" class="form-control" id="login" aria-describedby="emailHelp">
-          </div>
-          <div class="form-group"  style="margin-bottom: 10px;">
-            <label for="memberisedpassword">Password</label>
-            <input formControlName="memberisedpassword" type="password" class="form-control" id="memberisedpassword">
-          </div>
-          <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
-              <p style="margin-right: 20px; font-size: 14x; cursor: pointer;" (click)="clickRegistration()">Registration</p>
-              <button style="    width: 130px;
-              background-color: #2F80ED;
-            " type="submit" class="btn btn-primary" > <a style="text-decoration: none;   color: white;" routerLink="../youtube" routerLinkActive="active">Login</a></button>
-          </div>
-      </div>
-
-      <div class="registration-form" formGroupName="registrationGroup" *ngIf="openRegistration">
-          <h3 style="margin-top:20px; font-size: 22px;">Registration</h3>
-          <div class="form-group" style="margin-bottom: 10px;">
-            <label for="FirstName">First Name</label>
-            <input formControlName="firstName" type="text" class="form-control" id="FirstName" aria-describedby="emailHelp" >
+  <form [formGroup]="loginform" (ngSubmit)="onSubmit()" *ngIf="loginPage">
+    <div>
+      <div class="login-form" >
+        <h3 style="margin-top:10px; font-size: 22px;">Login</h3>
+        <div class="form-group" style="margin-bottom: 10px;">
+          <label for="login">login</label>
+          <input formControlName="login" type="email" class="form-control" id="login" aria-describedby="emailHelp">
 
             <!-- error -->
-            <div *ngIf="form.get('registrationGroup.firstName')?.invalid && form.get('registrationGroup.firstName')?.touched">
-              <small style="color: red" *ngIf="form.get('registrationGroup.firstName')?.errors?.required">First name is required.</small>
+            <div *ngIf="loginform.get('login')?.invalid && loginform.get('login')?.touched">
+              <small style="color: red" *ngIf="loginform.get('login')?.errors?.required">Email name is required.</small>
             </div>
 
+        </div>
+        <div class="form-group"  style="margin-bottom: 10px;">
+          <label for="memberisedpassword">Password</label>
+          <input formControlName="memberisedpassword" type="password" class="form-control" id="memberisedpassword">
+        </div>
 
+          <!-- error -->
+          <div *ngIf="loginform.get('memberisedpassword')?.invalid && loginform.get('memberisedpassword')?.touched">
+            <small style="color: red" *ngIf="loginform.get('memberisedpassword')?.errors?.required">Password is required.</small>
           </div>
-          <div class="form-group"  style="margin-bottom: 10px;">
-            <label for="exampleInputlastname">Last Name</label>
-            <input formControlName="lastName" type="text" class="form-control" id="exampleInputlastname">
 
-            <!-- error -->
-            <div *ngIf="form.get('registrationGroup.lastName')?.invalid && form.get('registrationGroup.lastName')?.touched ">
-              <small style="color: red"  *ngIf="form.get('registrationGroup.lastName')?.errors?.required">Last name is required.</small>
-            </div>
-          </div>
-
-          <div class="form-group"  style="margin-bottom: 10px;">
-              <label for="exampleInputemail">mail</label>
-              <input formControlName="email" class="form-control" id="exampleInputemail">
-
-               <!-- error -->
-            <div *ngIf="form.get('registrationGroup.email')?.invalid && form.get('registrationGroup.email').hasError('invalidEmail') && form.get('registrationGroup.email')?.touched">
-              <small style="color: red"  *ngIf="form.get('registrationGroup.email')?.errors?.required">Email  is required.</small>
-              <small style="color: red"  *ngIf="form.get('registrationGroup.email')?.errors?.invalidEmail">Please select Email simbol.</small>
-            </div>
-
-            </div>
-            <div class="form-group"  style="margin-bottom: 10px;">
-              <label for="exampleInputPassword">Password</label>
-              <input formControlName="password" type="password" class="form-control" id="exampleInputPassword">
-
-               <!-- error -->
-
-               
-            <div *ngIf="form.get('registrationGroup.password')?.invalid && form.get('registrationGroup.password').hasError('invalidPassword') && form.get('registrationGroup.password')?.touched">
-              <small style="color: red"  *ngIf="form.get('registrationGroup.password')?.errors?.required">Password is required.</small>
-              <small style="color: red"  *ngIf="form.get('registrationGroup.password')?.errors?.invalidPassword"> Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</small>
-            </div>
-            </div>
-
-          <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
-              <a style="margin-right: 20px; font-size: 14x;" href="">Login</a>
-              <button style="    width: 130px;
-              background-color: #2F80ED;
-              color: white;" type="submit" class="btn btn-primary" (click)="newCustomerResgistraion()">Registration</button>
-          </div>
+        <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
+            <p style="margin-right: 20px; font-size: 14x; cursor: pointer;" (click)="clickRegistration()">Registration</p>
+            <button style="    width: 130px;
+            background-color: #2F80ED;
+          " type="submit" class="btn btn-primary" > <a style="text-decoration: none;   color: white;" >Login</a></button>
+        </div>
       </div>
-    </form>
+    </div>
+
+  </form>
+
+  <form [formGroup]="registrationForm" *ngIf="!loginPage">
+    <div class="registration-form">
+        <h3 style="margin-top:20px; font-size: 22px;">Registration</h3>
+        <div class="form-group" style="margin-bottom: 10px;">
+          <label for="FirstName">First Name</label>
+          <input formControlName="firstName" type="text" class="form-control" id="FirstName" aria-describedby="emailHelp" >
+
+          <!-- error -->
+          <div *ngIf="registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched">
+            <small style="color: red" *ngIf="registrationForm.get('firstName')?.errors?.required">First name is required.</small>
+          </div>
+
+
+        </div>
+        <div class="form-group"  style="margin-bottom: 10px;">
+          <label for="exampleInputlastname">Last Name</label>
+          <input formControlName="lastName" type="text" class="form-control" id="exampleInputlastname">
+
+          <!-- error -->
+          <div *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched ">
+            <small style="color: red"  *ngIf="registrationForm.get('lastName')?.errors?.required">Last name is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group"  style="margin-bottom: 10px;">
+            <label for="exampleInputemail">mail</label>
+            <input formControlName="email" class="form-control" id="exampleInputemail">
+
+             <!-- error -->
+          <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email').hasError('invalidEmail') && registrationForm.get('email')?.touched">
+            <small style="color: red"  *ngIf="registrationForm.get('email')?.errors?.required">Email  is required.</small>
+            <small style="color: red"  *ngIf="registrationForm.get('email')?.errors?.invalidEmail">Please select Email simbol.</small>
+          </div>
+
+          </div>
+          <div class="form-group"  style="margin-bottom: 10px;">
+            <label for="exampleInputPassword">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="exampleInputPassword">
+
+             <!-- error -->
+
+             
+          <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password').hasError('invalidPassword') && registrationForm.get('password')?.touched">
+            <small style="color: red"  *ngIf="registrationForm.get('password')?.errors?.required">Password is required.</small>
+            <small style="color: red"  *ngIf="registrationForm.get('password')?.errors?.invalidPassword"> Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</small>
+          </div>
+          </div>
+
+        <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
+            <span style="margin-right: 20px; font-size: 14x; cursor: pointer; color: #2F80ED;"  (click)="backToLogin()">Login</span>
+            <button style="    width: 130px;
+            background-color: #2F80ED;
+            color: white;" type="submit" class="btn btn-primary" (click)="newCustomerResgistraion()">Registration</button>
+        </div>
+    </div>
+      
+  </form>
 
 </div>
 

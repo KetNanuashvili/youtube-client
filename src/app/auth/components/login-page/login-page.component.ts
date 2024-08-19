@@ -9,49 +9,71 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent implements OnInit{
-  loginFunction: false;
+  loginPage: boolean = true;
+  loginFunction:boolean= false;
+
   openRegistration: boolean = false;
   smallErrors: boolean = false;
 
- form: FormGroup;
+ loginform: FormGroup;
+ registrationForm: FormGroup;
+
  constructor (private FormgroupService : FormgroupService, private route: ActivatedRoute){
 
  }
 
   ngOnInit(): void {
-    this.form= this.FormgroupService.logineForm();
-    console.log(this.form);
+    this.loginform= this.FormgroupService.createLoginForm();
+    this.registrationForm= this.FormgroupService.createRegistrationForm();
+
+    
     
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      // console.log(this.form.value);
+    console.log(this.loginform);
+   
+    if(this.loginform.invalid){  
+
+      alert('The form is invalid, please fill in all required fields.')
+    } else {
+
+      alert('Your registration was successful')
+
     }
   }
 
 
   clickRegistration() {
-    this.openRegistration = !this.openRegistration;
-
-    // console.log(this.openRegistration);
+  
+    this.loginPage = !this.loginPage;
+    console.log(this.loginPage);
+    if(!this.loginPage){
+      this.registrationForm.reset;
+    }
     
   }
 
   newCustomerResgistraion(){
-    console.log(this.form);
-    // console.log(this.form.value.valid);
+    if(this.registrationForm.invalid){  
+      alert('The form is invalid, please fill in all required fields.')
     
-    if(this.form.invalid){  // Correct way to check if the form is invalid
-      console.log('The form is invalid, please fill in all required fields.');
     } else {
-      console.log('Form is valid and ready to submit.');
-      console.log('Form Submitted', this.form.value);
-      // Your logic to handle the valid form submission here
-    }
 
+      alert('Your registration was successful')
+    this.loginPage =!this.loginPage;
+      // console.log(this.loginPage);
+    }
     
   }
+
+  backToLogin(){
+     this.loginPage=!this.loginPage;
+    console.log(!this.loginPage);
+    
+  }
+
+
 }
 
 
