@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormgroupService } from '../../services/formgroup.service';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import {FormDataServiceService} from '../../services/form-data-service.service'
 
 @Component({
   selector: 'app-login-page',
@@ -14,11 +15,15 @@ export class LoginPageComponent implements OnInit{
   passwordUnhide: boolean= false;
   openRegistration: boolean = false;
   smallErrors: boolean = false;
+  myYoutubeChanel: boolean= false;
 
+  myName: boolean =false;
  loginform: FormGroup;
  registrationForm: FormGroup;
 
- constructor (private FormgroupService : FormgroupService, private route: ActivatedRoute){
+
+
+ constructor (private FormDataServiceService : FormDataServiceService,private FormgroupService : FormgroupService, private route: ActivatedRoute, private router: Router){
 
  }
 
@@ -26,20 +31,26 @@ export class LoginPageComponent implements OnInit{
     this.loginform= this.FormgroupService.createLoginForm();
     this.registrationForm= this.FormgroupService.createRegistrationForm();
 
-    
-    
   }
 
   onSubmit() {
-    console.log(this.loginform);
-   
     if(this.loginform.invalid){  
-
+   
       alert('The form is invalid, please fill in all required fields.')
     } else {
+      const savedFormData = this.FormDataServiceService.getFormData('myFormKey');
+      console.log(savedFormData);
+      
+      if (
+        savedFormData.email === this.loginform.value.login &&
+        savedFormData.password === this.registrationForm.value.password
+      ) {
+        alert('Login successful!');
+        this.router.navigate(['/youtube']);
+       
+      }  
 
-      alert('Your registration was successful')
-
+    
     }
   }
 
@@ -56,12 +67,17 @@ export class LoginPageComponent implements OnInit{
 
   newCustomerResgistraion(){
     if(this.registrationForm.invalid){  
+      console.log(this.registrationForm);
       alert('The form is invalid, please fill in all required fields.')
     
     } else {
-
+      console.log(this.registrationForm);
+      this.FormDataServiceService.saveFormData('myFormKey', this.registrationForm.value);
       alert('Your registration was successful')
+
+      
     this.loginPage =!this.loginPage;
+  
       // console.log(this.loginPage);
     }
     
@@ -82,6 +98,16 @@ export class LoginPageComponent implements OnInit{
       this.loginform.value.memberisedpassword;
     }
   }
+
+  myYoutubePage(){
+    !this.myYoutubeChanel;
+  }
+
+
+
+
+
+
 }
 
 
