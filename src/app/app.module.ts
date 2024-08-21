@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainServiceService } from './youtube/services/main-service.service';
 import { LoginPageComponent } from './auth/components/login-page/login-page.component';
 import { DetailComponentComponent } from './youtube/components/detail-component/detail-component.component';
+import { AlertComponent } from './shared/components/alert/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DetailComponentComponent } from './youtube/components/detail-component/
     SearchResultComponent,
     LoginPageComponent,
     DetailComponentComponent,
+    AlertComponent,
 
   ],
   imports: [

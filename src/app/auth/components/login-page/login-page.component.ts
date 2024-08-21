@@ -3,6 +3,8 @@ import { FormgroupService } from '../../services/formgroup.service';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {FormDataServiceService} from '../../services/form-data-service.service'
+import { AlertComponent } from '../../../shared/components/alert/alert/alert.component'; // Import the AlertComponent
+
 
 @Component({
   selector: 'app-login-page',
@@ -16,14 +18,18 @@ export class LoginPageComponent implements OnInit{
   openRegistration: boolean = false;
   smallErrors: boolean = false;
   myYoutubeChanel: boolean= false;
-
+  openAlert: boolean= false;
   myName: boolean =false;
  loginform: FormGroup;
  registrationForm: FormGroup;
-
-
-
- constructor (private FormDataServiceService : FormDataServiceService,private FormgroupService : FormgroupService, private route: ActivatedRoute, private router: Router){
+ closeAlert: boolean =false;
+ succesLogin: boolean= false;
+ registrationSucces: boolean= false;
+registrationUnsuccess: boolean= false;
+ constructor (
+  private FormDataServiceService : FormDataServiceService,
+  private FormgroupService : FormgroupService, 
+   private router: Router){
 
  }
 
@@ -35,22 +41,23 @@ export class LoginPageComponent implements OnInit{
 
   onSubmit() {
     if(this.loginform.invalid){  
-   
-      alert('The form is invalid, please fill in all required fields.')
+      console.log('invalidi');
+     this.openAlert= !this.openAlert;
+      // if(this.closeAlert){
+      //   this.closeAlert =true;
+      // }
     } else {
       const savedFormData = this.FormDataServiceService.getFormData('myFormKey');
       console.log(savedFormData);
-      
       if (
         savedFormData.email === this.loginform.value.login &&
         savedFormData.password === this.registrationForm.value.password
       ) {
-        alert('Login successful!');
         this.router.navigate(['/youtube']);
        
-      }  
-
-    
+      }  else{
+        this.openAlert= !this.openAlert;
+      }
     }
   }
 
@@ -60,7 +67,7 @@ export class LoginPageComponent implements OnInit{
     this.loginPage = !this.loginPage;
     console.log(this.loginPage);
     if(!this.loginPage){
-      this.registrationForm.reset;
+      this.registrationForm.reset();
     }
     
   }
@@ -68,17 +75,15 @@ export class LoginPageComponent implements OnInit{
   newCustomerResgistraion(){
     if(this.registrationForm.invalid){  
       console.log(this.registrationForm);
+      this.registrationUnsuccess=!this.registrationUnsuccess;
       alert('The form is invalid, please fill in all required fields.')
+
     
     } else {
       console.log(this.registrationForm);
       this.FormDataServiceService.saveFormData('myFormKey', this.registrationForm.value);
-      alert('Your registration was successful')
-
-      
-    this.loginPage =!this.loginPage;
-  
-      // console.log(this.loginPage);
+      this.registrationSucces=!this.registrationSucces
+      this.loginPage =!this.loginPage;
     }
     
   }
@@ -100,12 +105,8 @@ export class LoginPageComponent implements OnInit{
   }
 
   myYoutubePage(){
-    !this.myYoutubeChanel;
+    this.myYoutubeChanel = !this.myYoutubeChanel;
   }
-
-
-
-
 
 
 }

@@ -62,10 +62,10 @@
           </div>
 
         <div style="display: flex; justify-content: end; align-items: center; margin-top: 5px;">
-            <p style="margin-right: 20px; font-size: 14x; cursor: pointer;" (click)="clickRegistration()">Registration</p>
+            <p style="margin-right: 20px; font-size: 14x; cursor: pointer; color: #2F80ED;" (click)="clickRegistration()">Registration</p>
             <button style="    width: 130px;
             background-color: #2F80ED;
-          " type="submit" class="btn btn-primary" > <a style="text-decoration: none;   color: white;" >Login</a></button>
+          " type="submit" class="btn btn-primary" > <a style="text-decoration: none;   color: white;" (click)="myYoutubePage()">Login</a></button>
         </div>
       </div>
     </div>
@@ -146,3 +146,7 @@
 
 </div>
 
+<app-alert *ngIf="openAlert" ></app-alert>
+<app-alert *ngIf="succesLogin" ></app-alert>
+<app-alert *ngIf="registrationSucces" ></app-alert>
+<app-alert *ngIf="registrationUnsuccess" ></app-alert>
