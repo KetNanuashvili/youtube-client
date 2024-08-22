@@ -26,6 +26,7 @@ export class LoginPageComponent implements OnInit{
  succesLogin: boolean= false;
  registrationSucces: boolean= false;
 registrationUnsuccess: boolean= false;
+registrationmust: boolean=false;
  constructor (
   private FormDataServiceService : FormDataServiceService,
   private FormgroupService : FormgroupService, 
@@ -40,23 +41,17 @@ registrationUnsuccess: boolean= false;
   }
 
   onSubmit() {
-    if(this.loginform.invalid){  
-      console.log('invalidi');
-     this.openAlert= !this.openAlert;
-      // if(this.closeAlert){
-      //   this.closeAlert =true;
-      // }
+    if(this.loginform.invalid) {  
+      this.openAlert = true;
     } else {
       const savedFormData = this.FormDataServiceService.getFormData('myFormKey');
-      console.log(savedFormData);
-      if (
-        savedFormData.email === this.loginform.value.login &&
-        savedFormData.password === this.registrationForm.value.password
-      ) {
+      if (savedFormData.email === this.loginform.value.login &&
+          savedFormData.password === this.registrationForm.value.password) {
+        this.succesLogin = true;
+        alert('Login Successful! Welcome back.');
         this.router.navigate(['/youtube']);
-       
-      }  else{
-        this.openAlert= !this.openAlert;
+      } else {
+        this.registrationmust = true;
       }
     }
   }
@@ -72,20 +67,15 @@ registrationUnsuccess: boolean= false;
     
   }
 
-  newCustomerResgistraion(){
-    if(this.registrationForm.invalid){  
-      console.log(this.registrationForm);
-      this.registrationUnsuccess=!this.registrationUnsuccess;
-      alert('The form is invalid, please fill in all required fields.')
-
-    
+  newCustomerResgistraion() {
+    if(this.registrationForm.invalid) {  
+      this.registrationUnsuccess = true;
+      // alert('The form is invalid, please fill in all required fields.');
     } else {
-      console.log(this.registrationForm);
       this.FormDataServiceService.saveFormData('myFormKey', this.registrationForm.value);
-      this.registrationSucces=!this.registrationSucces
-      this.loginPage =!this.loginPage;
+      this.registrationSucces = true;
+      this.loginPage = true;
     }
-    
   }
 
   backToLogin(){
@@ -107,7 +97,10 @@ registrationUnsuccess: boolean= false;
   myYoutubePage(){
     this.myYoutubeChanel = !this.myYoutubeChanel;
   }
-
+  resetAlert(alertType: string) {
+    this[alertType] = false;
+  }
+  
 
 }
 

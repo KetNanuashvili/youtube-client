@@ -146,7 +146,36 @@
 
 </div>
 
-<app-alert *ngIf="openAlert" ></app-alert>
-<app-alert *ngIf="succesLogin" ></app-alert>
-<app-alert *ngIf="registrationSucces" ></app-alert>
-<app-alert *ngIf="registrationUnsuccess" ></app-alert>
+<app-alert *ngIf="openAlert"
+           mainText="Please fill in all mandatory fields"
+           backgroundColor="#f8d7da"
+           textColor="#721c24"
+           (alertClosed)="resetAlert('openAlert')">
+</app-alert>
+
+<app-alert *ngIf="succesLogin"
+           mainText="Login Successful! Welcome back."
+           backgroundColor="#d4edda"
+           textColor="#155724"
+           (alertClosed)="resetAlert('succesLogin')">
+</app-alert>
+
+<app-alert *ngIf="registrationSucces"
+           mainText="Registration Successful! You can now log in."
+           backgroundColor="#cce5ff"
+           textColor="#004085"
+           (alertClosed)="resetAlert('registrationSucces')">
+</app-alert>
+
+<app-alert *ngIf="registrationUnsuccess"
+           mainText="Registration Failed. Please fill in all mandatory fields"
+           backgroundColor="#f8d7da"
+           textColor="#721c24"
+           (alertClosed)="resetAlert('registrationUnsuccess')">
+</app-alert>
+<app-alert *ngIf="registrationmust"
+           mainText="There is no such user, please register"
+           backgroundColor="#f8d7da"
+           textColor="#721c24"
+           (alertClosed)="resetAlert('registrationmust')">
+</app-alert>
